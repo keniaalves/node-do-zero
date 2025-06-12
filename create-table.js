@@ -1,9 +1,21 @@
-import { sql } from "./db.js";
+import sql from "./db.js";
 
-sql `
+const criarTabela = async () => {
+    try {
+      await sql.query( `
     CREATE TABLE videos (
-        title TEXT,
-        description TEXT
-        duration IBTEGER
+    id TEXT PRIMARY KEY,
+    title TEXT,
+    description TEXT,
+    duration INTEGER
 );
-`
+`);
+console.log('Tabela criada com sucesso!');
+} catch (err) {
+console.error('Erro ao criar tabela:', err);
+} finally {
+sql.end();
+}
+};
+
+criarTabela();
